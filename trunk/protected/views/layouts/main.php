@@ -1,56 +1,103 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
+<!--GOOGLE CUSTOM FONT LINK-->
+<link rel="stylesheet" href="<?php echo Html::cssUrl('style.css');?> " type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo Html::cssUrl('prettyPhoto.css');?> " type="text/css" media="screen" />
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+<!--SCRIPTS-->
+<script type="text/javascript" src="<?php echo Html::jsUrl('jquery.min.js');?> "></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('jquery-ui-1.8.13.custom.min.js');?> "></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('prettyphoto.js');?> "></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('activity.js');?> "></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('gmap3.min.js');?> "></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('jquery.backstretch.min.js');?> "></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('jquery.animate-colors-min.js');?> "></script>
+<script type="text/javascript" src="<?php echo Html::jsUrl('custom.js');?> "></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
 
-<div class="container" id="page">
+<div id="gMap"></div>
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+<div id="header">
+	<!--LOGO-->
+	<a id="logo" href="index.html"><img src="<?php echo Html::imageUrl('logo.png');?> " alt="The Navigator" /></a> 
+	<!--DESCRIPTION-->
+	<h2 id="description">Black Box Project</h2>	
+	<!--NAVIGATION MENU-->
+	<div id="navigation">
+		<ul id="dropmenu" class="menu">
+			<!--CURRENT MENU ITEM (class name = current-menu-item)-->
+			<li class="current-menu-item"><a href="index.html">Home</a>
+			<ul class="sub-menu">
+				<li><a href="#">Africa</a></li>
+				<li><a href="#">Asia</a></li>
+				<li><a href="#">Australia</a></li>
+				<li><a href="#">Europe</a></li>
+				<li><a href="#">North America</a></li>
+				<li><a href="#">South America</a></li>
+				<li><a href="#">View All</a></li>
+			</ul>
+			</li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="blog.html">Blog</a></li>
+			<li><a href="contact.html">Contact</a></li>
+			<li><a target="_blank" href="#">Goto &rarr;</a></li>
+		</ul>
+	</div>
+</div><!--end header-->	
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+<div id="loading"></div>
 
-	<?php echo $content; ?>
+<div id="contentContainer">
+	<?php echo $content?>
+</div><!--end contentContainer-->
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+<div id="footer">
 
-</div><!-- page -->
+	<!--WIDGET PANEL OPEN/CLOSE-->
+	<a href="#" id="widgetsOpen" title="More" class="widgetsToggle">+</a>
+	<a href="#" id="widgetsClose" title="Close" class="widgetsToggle">&times;</a>	
+	
+	<!--SEARCH (NOT FUNCTIONAL)-->	
+	<div id="footerSearch">
+		<form method="get" action="/">
+			<input type="image" src="<?php echo Html::imageUrl('mag_glass.png');?>" id="searchsubmit" alt="GO!" />
+			<input type="text" value="" onfocus="this.value=''; this.onfocus=null;"  name="s" id="s" />
+		</form>
+	</div>
+	
+	<!--SOCIAL BUTTONS-->
+	<div id="socialStuff">
+		<a class="socialicon" id="rssIcon" href="#"  title="Subscribe via RSS" rel="nofollow"></a>
+		<a class="socialicon" id="facebookIcon" href="#"  title="Facebook" rel="nofollow"></a>
+		<a class="socialicon" id="twitterIcon" href="#" title="Follow on Twitter" rel="nofollow"></a>
+		<!--
+		<a class="socialicon" id="vimeoIcon" href="#" title="Vimeo" rel="nofollow"></a>
+		<a class="socialicon" id="skypeIcon" href="#" title="Skype" rel="nofollow"></a>
+		<a class="socialicon" id="myspaceIcon" href="#" title="MySpace" rel="nofollow"></a>
+		<a class="socialicon" id="flickrIcon" href="#" title="Flickr" rel="nofollow"></a>
+		<a class="socialicon" id="linkedinIcon" href="#" title="LinkedIn" rel="nofollow"></a>
+		<a class="socialicon" id="youtubeIcon" href="#" title="YouTube" rel="nofollow"></a>
+		-->
+	</div>
+		
+	<!--COPYRIGHT NOTICE - IMPORTANT! DO NOT REMOVE GOOGLE NOTICE -->
+	<div id="copyright">
+	&copy; 2011 Black Box Project. Map by Google. Site by <a href="eTeam.vn">eTeam.vn</a>
+	</div>	
+	
+	<!--THIS SHOULD BE THE TITLE OF THE PAGE-->
+	<div class="pageContent">
+		<h2>Thông tin chi tiết</h2>
+	</div>
+</div><!--end footer-->
 
 </body>
 </html>
