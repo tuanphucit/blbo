@@ -1,3 +1,3 @@
-#Sat Oct 22 13:19:47 ICT 2011
+#Sat Oct 22 13:59:08 ICT 2011
 eclipse.preferences.version=1
-include_path=0;/blackbox
+include_path=0;/blackbox\u00055;org.eclipse.dltk.USER_LIBRARY/YiiFramework
