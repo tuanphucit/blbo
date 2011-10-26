@@ -61,29 +61,29 @@
 				streetViewControl:false,
 				zoomControl:false,
 				//MAP TYPE: 'roadmap', 'satellite', 'hybrid'
-				mapTypeId:'roadmap'
+				mapTypeId:'roadmap',
+			
 			}]
 		});
         function add(jQuerythis, i, title, link, excerpt, lati, longi, img){
-          jQuerythis.gmap3({
+          jQuerythis.gmap3(
+		  
+		  {
             action : 'addMarker',
             lat:lati,
             lng:longi,
+			
             //PIN MARKER IMAGE
-            options: {icon: new google.maps.MarkerImage('images/pin.png')},
+            options: {icon: new google.maps.MarkerImage('images/pin.png'),
+					  content: 'fuck',
+					  
+			},
+			
+			
+
+			
             events:{
-       			mouseover: function(marker){
-          			jQuerythis.css({cursor:'pointer'});
-          			jQuery('#markerTitle'+i+'').fadeIn({ duration: 200, queue: false }).animate({bottom:"32px"},{duration:200,queue:false});
-          			jQuery('.markerInfo').removeClass('activeInfo').hide();
-          			jQuery('#markerInfo'+i+'').addClass('activeInfo').show();
-          			jQuery('.marker').removeClass('activeMarker');
-          			jQuery('#marker'+i+'').addClass('activeMarker');
-      			},
-       			mouseout: function(){
-          			jQuerythis.css({cursor:'default'});
-          			jQuery('#markerTitle'+i+'').stop(true,true).fadeOut(200,function(){jQuery(this).css({bottom:"0"})});
-      			},
+       			
       			click: function(marker){window.location = link}
    			},
             callback: function(marker){
@@ -107,7 +107,20 @@
               	latLng: marker.getPosition()
                });
             }    		
-          });
+          },
+		   { action:'addOverlay',
+				content:  '<div style="color:#FFFFFF; border:1px solid #FFFFFF; ' +
+              'background-color: #242424; width:70px; line-height:20px; ' +
+              'height: 20px; text-align:center;font-size:12px;">'+title+'</div>',
+				lat:lati,
+				lng:longi,
+				offset:{
+					y:-32,
+					x:12
+					}
+			}
+
+		  );
         }
 });
 //]]>
