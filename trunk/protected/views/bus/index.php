@@ -110,7 +110,12 @@ jQuery.noConflict(); jQuery(document).ready(function(){
 			  	if ((lat != cLat) && (long != cLong)){
 				  	cLat = lat;
 				  	cLong = long;
-				  	jQuery('#gMap').gmap3({
+				  	jQuery('#gMap').gmap3(
+					{
+						action: 'clear',
+					},
+					
+					{
 				    	action: 'addMarker',
 				    	//LATITUDE AND LONGITUDE OF MARKER - REQUIRED
 				    	lat:lat,
@@ -137,7 +142,20 @@ jQuery.noConflict(); jQuery(document).ready(function(){
 							//MAP TYPE: 'roadmap', 'satellite', 'hybrid'
 							mapTypeId:'roadmap'
 						}]
-					});
+					},
+					{
+						 action:'addOverlay',
+							content:  '<div style="color:#FFFFFF; border:1px solid #FFFFFF; ' +
+									'background-color: #242424; width:70px; line-height:20px; ' +
+									'height: 20px; text-align:center;font-size:12px;"><?php echo $bus->code?></div>',
+							lat:<?php echo $bus->cLat;?>,
+							lng:<?php echo $bus->cLong;?>,
+							offset:{
+									y:-32,
+									x:12
+								}
+					}
+					);
 			  	}
 			  }
 			});
@@ -166,7 +184,10 @@ jQuery.noConflict(); jQuery(document).ready(function(){
       	jQuery("#footer").append('<div id="mapTypeContainer"><div id="mapStyleContainer" class="gradientBorder"><div id="mapStyle"></div></div><div id="mapType" class="roadmap"></div></div><div class="zoomControl" id="zoomOut"><img src="<?php echo Html::imageUrl('zoomOut.png');?>" alt="-" /></div><div class="zoomControl" id="zoomIn"><img src="<?php echo Html::imageUrl('zoomIn.png');?>" alt="+" /></div>');
     } 
     	
-	jQuery('#gMap').gmap3({
+	jQuery('#gMap').gmap3(
+	
+	{
+	
     	action: 'addMarker',
     	//LATITUDE AND LONGITUDE OF MARKER - REQUIRED
     	lat:<?php echo $bus->cLat;?>,
@@ -193,7 +214,19 @@ jQuery.noConflict(); jQuery(document).ready(function(){
 			//MAP TYPE: 'roadmap', 'satellite', 'hybrid'
 			mapTypeId:'roadmap'
 		}]
-	});
+	},
+	{
+		 action:'addOverlay',
+			content:  '<div style="color:#FFFFFF; border:1px solid #FFFFFF; ' +
+				'background-color: #242424; width:70px; line-height:20px; ' +
+                'height: 20px; text-align:center;font-size:12px;"><?php echo $bus->code?></div>',
+			lat:<?php echo $bus->cLat;?>,
+			lng:<?php echo $bus->cLong;?>,
+			offset:{
+					y:-32,
+					x:12
+				}
+	});  
 
 	
 });
